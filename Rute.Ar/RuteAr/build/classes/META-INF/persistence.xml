@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+ http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+	version="1.0">
+
+	<persistence-unit name="miUP">
+		<description>My Persistence Unit</description>
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>model.Activity</class>
+		<properties>
+			<property name="hibernate.connection.driver_class"
+				value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.username" value="root" />
+			<!-- <property name="hibernate.connection.username" value="jyaa2018_usr20" 
+				/> <property name="hibernate.connection.password" value="jyaa2018_pwd20" 
+				/> <property name="hibernate.connection.url" value="jdbc:mysql://mysql.java.linti.unlp.edu.ar:3306/jyaa2018_bd20" 
+				/> -->
+			<property name="hibernate.connection.url"
+				value="jdbc:mysql://localhost:3306/RuteAr" />
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+
+		</properties>
+	</persistence-unit>
+
+</persistence>
