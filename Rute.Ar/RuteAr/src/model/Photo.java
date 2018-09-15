@@ -1,9 +1,6 @@
 package model;
 
-import java.sql.Blob;
-
 import javax.persistence.*;
-import javax.sql.rowset.serial.SerialBlob;
 
 
 @Entity
@@ -17,7 +14,9 @@ public class Photo {
 	@JoinColumn(name="route_id")
 	private Route route;
 	
-	private Blob file;
+	private String file;
+	
+	private String ext;
 
 	private String name;
 
@@ -25,11 +24,11 @@ public class Photo {
 		
 	}
 	
-	public Blob getFile() {
+	public String getFile() {
 		return file;
 	}
 
-	public void setFile(Blob path) {
+	public void setFile(String path) {
 		this.file = path;
 	}
 
@@ -55,6 +54,14 @@ public class Photo {
 	
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getExt() {
+		return ext;
+	}
+
+	public void setExt(String ext) {
+		this.ext = ext;
 	}
 	
 }

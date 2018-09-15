@@ -1,14 +1,11 @@
 package model;
 
 import javax.persistence.*;
-import javax.sql.rowset.serial.SerialBlob;
-
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,7 +61,7 @@ public class Route {
 	private Difficulty difficulty;
 	//@LazyCollection(LazyCollectionOption.FALSE)
 	//@OneToMany(mappedBy="route", orphanRemoval = true, cascade = CascadeType.ALL)
-	private Blob points;
+	private String points;
 
 	public Route() {
 		super();
@@ -175,11 +172,11 @@ public class Route {
 //		this.note = note;
 //	}
 	
-	public Blob getPoints() {
+	public String getPoints() {
 		return this.points;
 	}
 
-	public void setPoints(Blob points) {
+	public void setPoints(String points) {
 		this.points = points;
 	}
 	
