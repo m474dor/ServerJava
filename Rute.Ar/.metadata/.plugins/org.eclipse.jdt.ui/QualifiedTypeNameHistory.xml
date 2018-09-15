@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="iDAO.iDAOGenerico"/>
+<fullyQualifiedTypeName name="iDAO.iDAOUser"/>
+<fullyQualifiedTypeName name="iDAO.iDAORating"/>
+<fullyQualifiedTypeName name="model.Admin"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="model.Photo"/>
+<fullyQualifiedTypeName name="model.Rating"/>
+<fullyQualifiedTypeName name="model.Note"/>
+<fullyQualifiedTypeName name="dAO.dAOHuman"/>
+<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
+<fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.DiscriminatorValue"/>
+<fullyQualifiedTypeName name="javax.persistence.ManyToOne"/>
+<fullyQualifiedTypeName name="javax.persistence.EntityTransaction"/>
+<fullyQualifiedTypeName name="javax.persistence.EntityManager"/>
+<fullyQualifiedTypeName name="iDAO.iDAOActivity"/>
+<fullyQualifiedTypeName name="dAO.dAOActivity"/>
+<fullyQualifiedTypeName name="manager.JPAUtility"/>
+<fullyQualifiedTypeName name="model.MapPoint"/>
+<fullyQualifiedTypeName name="dAO.dAOAdmin"/>
+<fullyQualifiedTypeName name="dAO.dAODifficulty"/>
+<fullyQualifiedTypeName name="dAO.dAOMapPoint"/>
+<fullyQualifiedTypeName name="dAO.dAONote"/>
+<fullyQualifiedTypeName name="dAO.dAOPhoto"/>
+<fullyQualifiedTypeName name="dAO.dAORating"/>
+<fullyQualifiedTypeName name="dAO.dAORoute"/>
+<fullyQualifiedTypeName name="dAO.dAOUser"/>
+<fullyQualifiedTypeName name="model.Difficulty"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.LazyCollection"/>
+<fullyQualifiedTypeName name="org.hibernate.annotations.LazyCollectionOption"/>
+<fullyQualifiedTypeName name="model.Human"/>
+<fullyQualifiedTypeName name="manager.factoryDAO"/>
+<fullyQualifiedTypeName name="javax.persistence.FetchType"/>
+<fullyQualifiedTypeName name="com.fasterxml.jackson.annotation.JsonIgnore"/>
+<fullyQualifiedTypeName name="model.Activity"/>
+<fullyQualifiedTypeName name="model.User"/>
+<fullyQualifiedTypeName name="model.Route"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="com.mysql.jdbc.Blob"/>
+<fullyQualifiedTypeName name="java.sql.Blob"/>
+<fullyQualifiedTypeName name="javax.sql.rowset.serial.SerialBlob"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+D:\Desktop\Server\Rute.Ar\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3934853103.index
+4098214570.index
+1438298300.index
+521216830.index
+2741305606.index
+2858892993.index

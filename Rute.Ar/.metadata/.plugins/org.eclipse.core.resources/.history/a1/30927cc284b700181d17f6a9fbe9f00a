@@ -1,0 +1,153 @@
+package test;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import dAO.*;
+import iDAO.*;
+import model.*;
+
+/**
+ * Servlet implementation class Test
+ */
+@WebServlet("/Test")
+public class Test extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public Test() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		Activity act = new Activity();
+		Admin admin = new Admin();
+		Difficulty diff = new Difficulty();
+		User us = new User();
+		dAOActivity actDAO = new dAOActivity();
+		dAOAdmin adminDAO = new dAOAdmin();
+		dAODifficulty diffDAO = new dAODifficulty();
+		dAOUser usDAO = new dAOUser();
+
+		us.setUserName("pato");
+		us.setPassword("pato");
+		us.setIsEnable(true);
+		usDAO.insert(us);
+		
+		response.getWriter().append("ACTIVITY \n");
+		String name = "Caminata";
+		boolean guardo, borro;
+		response.getWriter().append("Creo una nueva actividad y seteo el nombre " + name + "\n");
+		act.setName(name);
+		guardo = actDAO.insert(act);
+		response.getWriter().append("Guardo la actividad en la BBDD - Guardo? = " + guardo + "\n");
+
+		name = "Ciclismo";
+		response.getWriter().append("Creo una nueva actividad y seteo el nombre " + name + "\n");
+		act1.setName(name);
+		guardo = actDAO.insert(act1);
+		response.getWriter().append("Guardo la actividad en la BBDD - Guardo? = " + guardo + "\n");
+
+		response.getWriter().append("Obtengo todas la actividades de la BBDD \n");
+		for (Activity actAux : actDAO.findAll()) {
+			response.getWriter()
+					.append("Actividad id = " + actAux.getId() + ", nombre = " + actAux.getName() + "\n");
+		}
+
+		response.getWriter().append(
+				"Busco la actividad \"Ciclismo\" y encuentro: " + actDAO.findByName("Ciclismo").getName() + "\n");
+
+		response.getWriter().append("Elimino la actividad = " + act1.getName() + "\n");
+		borro = actDAO.delete(act1);
+		response.getWriter().append("Elimino? = " + borro + "\n");
+
+		response.getWriter().append("Actualizo la actividad = " + act.getName() + "\n");
+		act.setName("Cabalgata");
+		actDAO.update(act);
+		
+		response.getWriter().append("Obtengo todas la actividades de la BBDD \n");
+		for (Activity actAux : actDAO.findAll()) {
+				response.getWriter()
+						.append("Actividad id = " + actAux.getId() + ", nombre = " + actAux.getName() + "\n");
+		}
+		
+		//---------------------------------------------------
+		
+		response.getWriter().append("ADMINS \n");
+
+		name = "administrador1";
+		response.getWriter().append("Creo un admin con el nombre = " + name + "  \n");
+		admin.setName(name);
+		admin.setUserName("admin");
+		admin.setPassword("admin");
+		guardo = adminDAO.insert(admin);
+		response.getWriter().append("Guardo al admin en la BBDD - Guardo? = " + guardo + "\n");
+
+		name = "administrador2";
+		response.getWriter().append("Creo un nuevo admin y seteo el nombre " + name + "\n");
+		admin1.setName(name);
+		admin1.setUserName("admin");
+		admin1.setPassword("admin");
+		guardo = adminDAO.insert(admin1);
+		response.getWriter().append("Guardo al admin en la BBDD - Guardo? = " + guardo + "\n");
+
+		response.getWriter().append("Obtengo todos los admins de la BBDD \n");
+		for (Admin adminAux : adminDAO.findAll()) {
+			response.getWriter()
+					.append("Admin id = " + adminAux.getId() + ", nombre = " + adminAux.getName() + "\n");
+		}
+
+		response.getWriter().append("Elimino al admin = " + admin1.getName() + "\n");
+		borro = adminDAO.delete(admin1);
+		response.getWriter().append("Elimino? = " + borro + "\n");
+
+		response.getWriter().append("Actualizo al admin = " + admin.getName() + "\n");
+		admin.setName("root");
+		adminDAO.update(admin);
+		
+		response.getWriter().append("Obtengo todos los admins de la BBDD \n");
+		for (Admin adminAux : adminDAO.findAll()) {
+				response.getWriter()
+						.append("Actividad id = " + adminAux.getId() + ", nombre = " + adminAux.getName() + "\n");
+		}
+
+		//------------------------------------------------------------------
+		diff.setDifficulty(DifficultyType.Facil);
+		diff1.setDifficulty(DifficultyType.Moderado);
+		diffDAO.insert(diff);
+		diffDAO.insert(diff1);
+		for (Difficulty diffAux : diffDAO.findAll()) {
+			response.getWriter().append("Difficultad id = " + diffAux.getId() + ", nombre = " + diffAux.getDifficulty() + "\n");
+		}
+
+		
+		
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

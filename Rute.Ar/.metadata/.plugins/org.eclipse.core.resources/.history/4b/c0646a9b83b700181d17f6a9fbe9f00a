@@ -1,0 +1,19 @@
+package iDAO;
+
+import java.util.List;
+
+import com.mysql.jdbc.Blob;
+
+import model.Photo;
+
+public interface iDAOPhoto {
+	public Photo findId(long id);
+
+	public List<Photo> findAll();
+
+	public boolean insert(Blob blob);
+
+	public boolean update(Photo a);
+
+	public boolean delete(Photo a);
+}

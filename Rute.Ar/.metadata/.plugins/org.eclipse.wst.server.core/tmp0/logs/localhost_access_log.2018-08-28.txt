@@ -1,0 +1,5 @@
+127.0.0.1 - - [28/Aug/2018:20:37:45 -0300] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [28/Aug/2018:20:38:05 -0300] "GET /RuteAr/Test HTTP/1.1" 200 1072
+0:0:0:0:0:0:0:1 - - [28/Aug/2018:20:38:37 -0300] "OPTIONS /RuteAr/rest/usuarios HTTP/1.1" 200 2488
+0:0:0:0:0:0:0:1 - - [28/Aug/2018:20:39:12 -0300] "OPTIONS /RuteAr/rest/usuarios/loginAdmin HTTP/1.1" 200 750
+0:0:0:0:0:0:0:1 - - [28/Aug/2018:21:53:41 -0300] "OPTIONS /RuteAr/rest/usuarios HTTP/1.1" 200 2488
