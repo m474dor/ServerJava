@@ -15,8 +15,6 @@ public class Photo {
 	private Route route;
 	
 	private String file;
-	
-	private String ext;
 
 	private String name;
 
@@ -54,14 +52,6 @@ public class Photo {
 	
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getExt() {
-		return ext;
-	}
-
-	public void setExt(String ext) {
-		this.ext = ext;
 	}
 	
 }

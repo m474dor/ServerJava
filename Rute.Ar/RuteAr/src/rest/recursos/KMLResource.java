@@ -11,9 +11,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
 import javax.ws.rs.core.UriInfo;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataParam;
+//import com.sun.jersey.core.header.FormDataContentDisposition;
+//import com.sun.jersey.multipart.FormDataParam;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
@@ -28,26 +31,28 @@ public class KMLResource {
 	@Context
 	Request request;
 	private iDAORoute rdao = factoryDAO.getRouteDAO();
-	private static final String UPLOAD_FOLDER = "c:/uploadedFiles/kml/";
+	private static final String UPLOAD_FOLDER = "uploadedKML/";
 
 
 	@GET
 	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getPhotos(@PathParam("id") Integer id) {
+	@Produces(MediaType.APPLICATION_OCTET_STREAM)	
+	public Response getPhotos(@PathParam("id") Integer id) {
 		Route aux = rdao.findId(id);
-		return aux.getPoints();
-		// return udao.findDoneBy(aux);
+		File file = new File(aux.getPoints());
+	    ResponseBuilder response = Response.ok((Object) file);
+	    response.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+	    return response.build();
 	}
 
 	@POST
-	@Path("{id}")
+	@Path("{id}/{fileDetail}")
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public Response crear(
-			@PathParam("id") Integer id, 
-			@FormDataParam("file") InputStream uploadedInputStream,
-			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+			@PathParam("id") Integer id,
+			@PathParam("fileDetail") String fileDetail,
+			InputStream uploadedInputStream) {
 		Route aux = rdao.findId(id);
 		// check if all form parameters are provided
 		if (uploadedInputStream == null || fileDetail == null)
@@ -58,7 +63,7 @@ public class KMLResource {
 		} catch (SecurityException se) {
 			return Response.status(500).entity("Can not create destination folder on server").build();
 		}
-		String uploadedFileLocation = UPLOAD_FOLDER + fileDetail.getFileName();
+		String uploadedFileLocation = UPLOAD_FOLDER+ aux.getId()+'/' + fileDetail;
 		try {
 			saveToFile(uploadedInputStream, uploadedFileLocation);
 			aux.setPoints(uploadedFileLocation);

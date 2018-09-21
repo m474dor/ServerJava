@@ -61,8 +61,12 @@ public class Route {
 	private Difficulty difficulty;
 	//@LazyCollection(LazyCollectionOption.FALSE)
 	//@OneToMany(mappedBy="route", orphanRemoval = true, cascade = CascadeType.ALL)
-	private String points;
-
+//	private String points;
+	//@Lob
+    //@Column(name="kml", nullable=false, columnDefinition="mediumblob")
+    private String points;
+	
+	
 	public Route() {
 		super();
 		doneBy = new ArrayList<User>();

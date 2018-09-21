@@ -38,4 +38,6 @@ public interface iDAORoute {
 	public boolean delete(Route a);
 
 	List<Route> findByActivity(Activity act);
+
+	Route findInserted(User id, String name, Activity act);
 }

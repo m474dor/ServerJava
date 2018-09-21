@@ -193,5 +193,24 @@ public class dAORoute implements iDAORoute{
 			}
 		}
 	}
+	
+	@Override
+	public Route findInserted(User id,String name,Activity act) {
+		EntityManager em = null;
+		try {
+			em = JPAUtility.getEntityManager();
+			Query q = em.createQuery("SELECT r FROM Route r WHERE r.owner= :custOwner AND r.name= :custName AND r.activity= :custAct").setParameter("custOwner", id).setParameter("custName", name).setParameter("custAct", act);
+			Route resultList = (Route)q.getSingleResult();
+			return resultList;
+		} 
+		catch (Exception e){
+			return null;
+		}
+		finally {
+			if(em!=null && em.isOpen()){
+				em.close();
+			}
+		}
+	}
 
 }

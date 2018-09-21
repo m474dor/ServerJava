@@ -1,8 +1,6 @@
 package test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import dAO.*;
 import iDAO.*;
 import model.*;
+
 
 /**
  * Servlet implementation class Test

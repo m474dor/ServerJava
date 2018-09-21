@@ -43,14 +43,11 @@ public class RouteResource {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response crear(Route ruta) {
+	public Route crear(Route ruta) {
 		Route aux = rdao.findId(ruta.getId());
-		if (aux == null) { 		
+		if (aux == null)	
 			rdao.insert(ruta);
-			return Response.status(Response.Status.CREATED).build();
-		} else {
-			return Response.status(Response.Status.CONFLICT).build();
-		}
+		return rdao.findInserted(ruta.getOwner(),ruta.getName(),ruta.getActivity());
 	}
 
 	@PUT
@@ -72,13 +69,20 @@ public class RouteResource {
 	public Response borrar(@PathParam("id") Integer id) {
 		Route aux = rdao.findId(id);
 		User us = aux.getOwner();
-		us.getMyRoute().remove(aux);
+		List<Route> list = us.getMyRoute();
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getId()==aux.getId()) {
+				list.remove(i);
+				break;
+			}
+		}
+		us.setMyRoute(list);
 		if (aux != null && us != null) {
 			udao.update(us);
 			rdao.delete(aux);
-			return Response.noContent().build();
+			return Response.ok().build();
 		} else {
-			mensaje = "No existe esa ruta";
+			mensaje = "No se entro a eliminar";
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 		}
 	}
