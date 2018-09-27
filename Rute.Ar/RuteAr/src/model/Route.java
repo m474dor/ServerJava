@@ -34,8 +34,9 @@ public class Route {
 	private Boolean isCircular;
 
 	private Float rateAvg;
+	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="route", orphanRemoval = true, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="route")
 	private List<Photo> photos;
 	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -59,17 +60,17 @@ public class Route {
 	@ManyToOne(optional = false)
 	@JoinColumn(name="difficulty_id")
 	private Difficulty difficulty;
-	//@LazyCollection(LazyCollectionOption.FALSE)
-	//@OneToMany(mappedBy="route", orphanRemoval = true, cascade = CascadeType.ALL)
-//	private String points;
-	//@Lob
-    //@Column(name="kml", nullable=false, columnDefinition="mediumblob")
-    private String points;
+	@JsonIgnore
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy="route")
+    private List<MapPoint> points;
 	
 	
 	public Route() {
 		super();
 		doneBy = new ArrayList<User>();
+		photos = new ArrayList<Photo>();
+		points = new ArrayList<MapPoint>();
 	}
 	
 	public String getName() {
@@ -176,11 +177,11 @@ public class Route {
 //		this.note = note;
 //	}
 	
-	public String getPoints() {
+	public List<MapPoint> getPoints() {
 		return this.points;
 	}
 
-	public void setPoints(String points) {
+	public void setPoints(List<MapPoint> points) {
 		this.points = points;
 	}
 	

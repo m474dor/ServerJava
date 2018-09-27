@@ -3,11 +3,12 @@ package iDAO;
 import java.util.List;
 
 import model.Photo;
+import model.Route;
 
 public interface iDAOPhoto {
 	public Photo findId(long id);
 
-	public List<Photo> findAll();
+	public List<Photo> findAll(Route id);
 
 	public boolean insert(Photo a);
 

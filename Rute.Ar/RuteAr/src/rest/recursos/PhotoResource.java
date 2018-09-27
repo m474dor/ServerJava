@@ -1,6 +1,7 @@
 package rest.recursos;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +11,17 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.Response.ResponseBuilder;
+
 //import com.sun.jersey.core.header.FormDataContentDisposition;
 //import com.sun.jersey.multipart.FormDataParam;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+
+import com.sun.org.apache.xerces.internal.util.Status;
+
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.*;
@@ -34,16 +42,62 @@ public class PhotoResource {
 	private static final String UPLOAD_FOLDER = "uploadedFiles/";
 
 	@GET
-	@Path("{id}")
+	@Path("list/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Photo> getPhotos(@PathParam("id") Integer id) {
 		Route aux = rdao.findId(id);
 		return aux.getPhotos();
 		// return udao.findDoneBy(aux);
 	}
+	
+	@GET
+	@Path("{id}")
+	@Produces("image/jpg")	
+	public Response getPhotosFiles(@PathParam("id") Integer id) {
+		Photo aux = pdao.findId(id);
+		File file = new File(aux.getFile());
+		return Response.ok(file, "image/jpg").header("Inline", "filename=\"" + file.getName() + "\"").build();
+
+//		Route aux = rdao.findId(id);
+//		List<File> list = new ArrayList<File>();
+//		List<Photo> photos = pdao.findAll(aux);
+//		if(photos!=null)
+//			for(int i = 0;i<photos.size();i++) {
+//				list.add(new File(photos.get(i).getFile()));
+//			}
+//		GenericEntity<List<File>> entity = new GenericEntity<List<File>>(list) {};
+////		ResponseBuilder response = Response.ok((Object) list);
+////		response.header("Content-Disposition", "attachment; size=\"" + list.size() + "\"");
+////		return response.build();
+//		return Response.ok(entity).build();
+	}
+	
+	@DELETE
+	@Path("delete/{id}")
+	@Produces(MediaType.TEXT_PLAIN)
+	public Response borrar(@PathParam("id") Integer id) {
+		Photo aux = pdao.findId(id);
+//		User us = aux.getOwner();
+//		List<Route> list = us.getMyRoute();
+//		for(int i=0;i<list.size();i++) {
+//			if(list.get(i).getId()==aux.getId()) {
+//				list.remove(i);
+//				break;
+//			}
+//		}
+//		us.setMyRoute(list);
+		if (aux != null) {// && us != null) {
+			//udao.update(us);
+			pdao.delete(aux);
+			return Response.ok().build();
+		} else {
+			String mensaje = "No se entro a eliminar";
+			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
+		}
+	}
 
 	@POST
-	@Path("{id}")
+	@Path("{id}/{fileDetail}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response crear(
@@ -60,7 +114,7 @@ public class PhotoResource {
 		} catch (SecurityException se) {
 			return Response.status(500).entity("Can not create destination folder on server").build();
 		}
-		String uploadedFileLocation = UPLOAD_FOLDER + aux.getId() + '/' + fileDetail;
+		String uploadedFileLocation = UPLOAD_FOLDER + fileDetail;
 		try {
 			saveToFile(uploadedInputStream, uploadedFileLocation);
 			Photo p = new Photo();
@@ -68,10 +122,6 @@ public class PhotoResource {
 			p.setFile(uploadedFileLocation);
 			p.setName(fileDetail);
 			pdao.insert(p);
-			List<Photo> list = aux.getPhotos();
-			list.add(p);
-			aux.setPhotos(list);
-			rdao.update(aux);
 		} catch (IOException e) {
 			return Response.status(500).entity("Can not save file").build();
 		}

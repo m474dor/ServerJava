@@ -1,0 +1,118 @@
+package rest.recursos;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.UriInfo;
+//import com.sun.jersey.core.header.FormDataContentDisposition;
+//import com.sun.jersey.multipart.FormDataParam;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import javax.ws.rs.*;
+import javax.ws.rs.core.*;
+
+import manager.factoryDAO;
+import iDAO.*;
+import model.*;
+
+import de.micromata.opengis.kml.v_2_2_0.*;
+
+@Path("/kml")
+public class KMLResource {
+	@Context
+	UriInfo uriInfo;
+	@Context
+	Request request;
+	private iDAORoute rdao = factoryDAO.getRouteDAO();
+	private static final String UPLOAD_FOLDER = "uploadedKML/";
+
+
+	@GET
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)	
+	public Response getPhotos(@PathParam("id") Integer id) {
+		Route aux = rdao.findId(id);
+		File file = new File(aux.getPoints());
+	    ResponseBuilder response = Response.ok((Object) file);
+	    response.header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+	    return response.build();
+	}
+
+	@POST
+	@Path("{id}/{fileDetail}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response crear(
+			@PathParam("id") Integer id,
+			@PathParam("fileDetail") String fileDetail,
+			InputStream is) {
+		Route aux = rdao.findId(id);
+		// check if all form parameters are provided
+		if (is == null || fileDetail == null)
+			return Response.status(400).entity("Invalid form data").build();
+		// create our destination folder, if it not exists
+		try {
+			Assert.assertNotNull(is);
+	        Kml kml = Kml.unmarshal(is);
+	        Feature feature = kml.getFeature();
+	        parseFeature(feature);
+		} catch (SecurityException se) {
+			return Response.status(500).entity("Can not create destination folder on server").build();
+		}
+	}
+	
+	private void parseFeature(Feature feature) {
+	    if(feature != null) {
+	        if(feature instanceof Document) {
+	            Document document = (Document) feature;
+	            List<Feature> featureList = document.getFeature();
+	            for(Feature documentFeature : featureList) {
+	                if(documentFeature instanceof Placemark) {
+	                    Placemark placemark = (Placemark) documentFeature;
+	                    Geometry geometry = placemark.getGeometry();
+	                    parseGeometry(geometry);
+	                }
+	            }
+	        }
+	    }
+	}
+
+	private void parseGeometry(Geometry geometry) {
+	    if(geometry != null) {
+	        if(geometry instanceof Polygon) {
+	            Polygon polygon = (Polygon) geometry;
+	            Boundary outerBoundaryIs = polygon.getOuterBoundaryIs();
+	            if(outerBoundaryIs != null) {
+	                LinearRing linearRing = outerBoundaryIs.getLinearRing();
+	                if(linearRing != null) {
+	                    List<Coordinate> coordinates = linearRing.getCoordinates();
+	                    if(coordinates != null) {
+	                        for(Coordinate coordinate : coordinates) {
+	                            parseCoordinate(coordinate);
+	                        }
+	                    }
+	                }
+	            }
+	        }
+	    }
+	}
+
+	private void parseCoordinate(Coordinate coordinate) {
+	    if(coordinate != null) {
+	        System.out.println("Longitude: " +  coordinate.getLongitude());
+	        System.out.println("Latitude : " +  coordinate.getLatitude());
+	        System.out.println("Altitude : " +  coordinate.getAltitude());
+	        System.out.println("");
+	    }
+	}
+	
+}

@@ -6,6 +6,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import manager.factoryDAO;
 import iDAO.*;
+import model.MapPoint;
+import model.Photo;
 import model.Route;
 import model.User;
 
@@ -17,6 +19,8 @@ public class RouteResource {
 	Request request;
 	private iDAORoute rdao = factoryDAO.getRouteDAO();
 	private iDAOUser udao = factoryDAO.getUserDAO();
+	private iDAOMapPoint mdao = factoryDAO.getMapPointDAO();
+	private iDAOPhoto pdao = factoryDAO.getPhotoDAO();
 
 	private String mensaje;
 
@@ -53,14 +57,11 @@ public class RouteResource {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response editar(Route ruta) {
+	public Route editar(Route ruta) {
 		Route aux = rdao.findId(ruta.getId());
-		if (aux != null) {
+		if (aux != null)
 			rdao.update(ruta);
-			return Response.ok().entity(ruta).build();
-		} else {
-			return Response.status(Response.Status.NOT_FOUND).entity("[]").build();
-		}
+		return rdao.findInserted(ruta.getOwner(), ruta.getName(), ruta.getActivity());
 	}
 
 	@DELETE
@@ -68,21 +69,33 @@ public class RouteResource {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response borrar(@PathParam("id") Integer id) {
 		Route aux = rdao.findId(id);
-		User us = aux.getOwner();
-		List<Route> list = us.getMyRoute();
-		for(int i=0;i<list.size();i++) {
-			if(list.get(i).getId()==aux.getId()) {
-				list.remove(i);
-				break;
-			}
-		}
-		us.setMyRoute(list);
-		if (aux != null && us != null) {
-			udao.update(us);
+//		User us = udao.findId(aux.getOwner().getId());
+//		List<Route> list = us.getMyRoute();
+//		for(int i=0;i<list.size();i++) {
+//			if(list.get(i).getId()==aux.getId()) {
+//				list.remove(i);
+//				break;
+//			}
+//		}
+//		us.setMyRoute(list);
+//		List<Photo> ph = aux.getPhotos();
+//		for(int i=0;i<ph.size();i++) {
+//			pdao.delete(ph.get(i));
+//		}
+//		
+//		List<MapPoint> mp = aux.getPoints();
+//		for(int i=0;i<mp.size();i++) {
+//			mdao.delete(mp.get(i));
+//		}
+		if (aux != null) {// && us != null) {
+			//udao.update(us);
 			rdao.delete(aux);
+			System.out.println("entro");
+
 			return Response.ok().build();
 		} else {
 			mensaje = "No se entro a eliminar";
+			System.out.println(mensaje);
 			return Response.status(Response.Status.NOT_FOUND).entity(mensaje).build();
 		}
 	}

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import iDAO.iDAOPhoto;
 import manager.JPAUtility;
 import model.Photo;
+import model.Route;
 
 public class dAOPhoto implements iDAOPhoto{
 
@@ -28,11 +29,11 @@ public class dAOPhoto implements iDAOPhoto{
 	}
 
 	@Override
-	public List<Photo> findAll() {
+	public List<Photo> findAll(Route id) {
 		EntityManager em = null;
 		try {
 			em = JPAUtility.getEntityManager();
-			Query q = em.createQuery("FROM Photo");
+			Query q = em.createQuery("SELECT p FROM Photo p WHERE p.route= :custId").setParameter("custId", id);
 			List<Photo> resultList = (List<Photo>)q.getResultList();
 			return resultList;
 		} 

@@ -39,8 +39,9 @@
 <fullyQualifiedTypeName name="model.Activity"/>
 <fullyQualifiedTypeName name="model.User"/>
 <fullyQualifiedTypeName name="model.Route"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="com.mysql.jdbc.Blob"/>
 <fullyQualifiedTypeName name="java.sql.Blob"/>
 <fullyQualifiedTypeName name="javax.sql.rowset.serial.SerialBlob"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
 </qualifiedTypeNameHistroy>

@@ -13,27 +13,27 @@ public class MapPoint {
 	@JoinColumn(name="route_id")
 	private Route route;
 	
-	private Float lat;
+	private double lat;
 
-	private Float lon;
+	private double lon;
 
 	public MapPoint() {
 
 	}
 	
-	public Float getLat() {
+	public double getLat() {
 		return lat;
 	}
 
-	public void setLat(Float lat) {
-		this.lat = lat;
+	public void setLat(double d) {
+		this.lat = d;
 	}
 
-	public Float getLong() {
+	public double getLong() {
 		return lon;
 	}
 
-	public void setLong(Float lon) {
+	public void setLong(double lon) {
 		this.lon = lon;
 	}
 	
