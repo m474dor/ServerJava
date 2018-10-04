@@ -89,7 +89,12 @@ public class RouteResource {
 //		}
 		if (aux != null) {// && us != null) {
 			//udao.update(us);
-			rdao.delete(aux);			
+			rdao.delete(aux);
+			Route aux2 = rdao.findId(id);
+			if(aux2!=null) {
+				rdao.deleteForce(aux2);
+				System.out.println("deleteforce");
+			}
 			System.out.println("entro");
 
 			return Response.ok().build();

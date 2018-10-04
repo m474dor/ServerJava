@@ -6,7 +6,6 @@
 <fullyQualifiedTypeName name="iDAO.iDAORating"/>
 <fullyQualifiedTypeName name="model.Admin"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="model.Photo"/>
 <fullyQualifiedTypeName name="model.Rating"/>
 <fullyQualifiedTypeName name="model.Note"/>
 <fullyQualifiedTypeName name="dAO.dAOHuman"/>
@@ -20,7 +19,6 @@
 <fullyQualifiedTypeName name="iDAO.iDAOActivity"/>
 <fullyQualifiedTypeName name="dAO.dAOActivity"/>
 <fullyQualifiedTypeName name="manager.JPAUtility"/>
-<fullyQualifiedTypeName name="model.MapPoint"/>
 <fullyQualifiedTypeName name="dAO.dAOAdmin"/>
 <fullyQualifiedTypeName name="dAO.dAODifficulty"/>
 <fullyQualifiedTypeName name="dAO.dAOMapPoint"/>
@@ -44,4 +42,9 @@
 <fullyQualifiedTypeName name="javax.sql.rowset.serial.SerialBlob"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
+<fullyQualifiedTypeName name="javax.ws.rs.core.Response"/>
+<fullyQualifiedTypeName name="com.sun.org.apache.xerces.internal.util.Status"/>
+<fullyQualifiedTypeName name="model.Photo"/>
+<fullyQualifiedTypeName name="model.MapPoint"/>
 </qualifiedTypeNameHistroy>

@@ -34,8 +34,6 @@ public class Route {
 	private Boolean isCircular;
 
 	private Float rateAvg;
-	
-	private String act;
 	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany(mappedBy="route", cascade=CascadeType.REMOVE)
@@ -217,13 +215,5 @@ public class Route {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getAct() {
-		return act;
-	}
-
-	public void setAct(String act) {
-		this.act = act;
 	}
 }

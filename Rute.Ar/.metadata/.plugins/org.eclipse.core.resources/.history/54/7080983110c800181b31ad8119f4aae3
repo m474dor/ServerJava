@@ -20,7 +20,7 @@ public class User extends Human {
 	private List<Route> done;
 	@JsonIgnore
 	@LazyCollection(LazyCollectionOption.FALSE)
-	@OneToMany(mappedBy="owner", orphanRemoval = true, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="owner", orphanRemoval = true, cascade = CascadeType.ALL)
 	private  List<Route> myRoute;
 	
 //	@LazyCollection(LazyCollectionOption.FALSE)

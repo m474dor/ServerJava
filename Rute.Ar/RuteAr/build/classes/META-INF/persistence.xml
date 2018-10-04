@@ -12,13 +12,13 @@
 		<properties>
 			<property name="hibernate.connection.driver_class"
 				value="com.mysql.jdbc.Driver" />
-			<property name="hibernate.connection.username" value="root" />
-			<!-- <property name="hibernate.connection.username" value="jyaa2018_usr20" 
-				/> <property name="hibernate.connection.password" value="jyaa2018_pwd20" 
-				/> <property name="hibernate.connection.url" value="jdbc:mysql://mysql.java.linti.unlp.edu.ar:3306/jyaa2018_bd20" 
-				/> -->
-			<property name="hibernate.connection.url"
-				value="jdbc:mysql://localhost:3306/RuteAr" />
+
+			<property name="hibernate.connection.username" value="jyaa2018_usr20"/> 
+			<property name="hibernate.connection.password" value="jyaa2018_pwd20"/> 
+			<property name="hibernate.connection.url" value="jdbc:mysql://mysql.java.linti.unlp.edu.ar:3306/jyaa2018_bd20"/>
+			<!--<property name="hibernate.connection.username" value="root" />
+			 <property name="hibernate.connection.url"
+				value="jdbc:mysql://localhost:3306/RuteAr" /> -->
 			<property name="hibernate.dialect"
 				value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
